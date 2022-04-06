@@ -11,7 +11,14 @@ const [ searchValue, setSearchValue] = useState("airoli")
 const [tempInfo,setTempInfo] =useState({})
 
 const getWeatherInfo = async () => { 
-try {
+    var input = document.getElementById("search");
+    input.addEventListener("keyup",function(event){
+        if (event.keyCode === 13){
+            event.preventDefault();
+            document.getElementById("btnSearch").click();
+        }
+    });
+    try {
     let url= `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=ec818d0159144c731f41ff1c1ee2cdb2`
 
 const res = await fetch(url)
@@ -44,7 +51,7 @@ useEffect(() => {
             <div className="wrap">
                 <div className="search">
                     <input type="search" placeholder='search...' autoFocus id="search" className='searchTerm' value={searchValue} onChange={(e)=> setSearchValue(e.target.value)}  />
-                    <button className="searchButton" type='button' onClick={getWeatherInfo}>Search</button>
+                    <button className="searchButton" id='btnSearch' type='button' onClick={getWeatherInfo}>Search</button>
                 </div>
             </div>
 

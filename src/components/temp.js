@@ -1,9 +1,6 @@
-// https://api.openweathermap.org/data/2.5/weather?q=pune&appid=ec818d0159144c731f41ff1c1ee2cdb2
-
 import React, {useState,useEffect} from 'react'
 import './style.css'
 import Weathercard from './weathercard'
-
 
 const Temp = () => {
 
@@ -20,7 +17,7 @@ const getWeatherInfo = async () => {
     });
     try {
     let url= `https://api.openweathermap.org/data/2.5/weather?q=${searchValue}&units=metric&appid=ec818d0159144c731f41ff1c1ee2cdb2`
-
+            
 const res = await fetch(url)
 const data = await res.json(); //converting the data into readable format.
 console.log(data)
@@ -30,9 +27,9 @@ const {main:weathermood}=data.weather[0]; //this data is present inside an array
 const {name} = data ;
 const {speed} = data.wind;
 const {country,sunset}=data.sys;
-
+const times=data.timezone;
 const myNewWeatherInfo = {
-    temp,humidity,pressure,weathermood,name,speed,country,sunset
+    temp,humidity,pressure,weathermood,name,speed,country,sunset,times
 };
 setTempInfo(myNewWeatherInfo);
 } catch (error) {
@@ -45,21 +42,18 @@ useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
 }, []) 
 
-
     return (
         <>
             <div className="wrap">
                 <div className="search">
-                    <input type="search" placeholder='search...' autoFocus id="search" className='searchTerm' value={searchValue} onChange={(e)=> setSearchValue(e.target.value)}  />
+                    <input type="search" placeholder='Type the name of the City.' autoFocus id="search" className='searchTerm' value={searchValue} onChange={(e)=> setSearchValue(e.target.value)}  />
                     <button className="searchButton" id='btnSearch' type='button' onClick={getWeatherInfo}>Search</button>
                 </div>
             </div>
-
 
             {/* our temp card */}
             <Weathercard  tempInfo={tempInfo}/>   {/* we are passing temp info as a props. */}
         </>
     )
 }
-
 export default Temp

@@ -58,7 +58,7 @@ const Weathercard = ({ tempInfo }) => {
                 </div>
                 
                 <div className="date" id='dateTimes'>
-                    { moment().utcOffset(times/60).format('DD/MM/YYYY, h:mm a') 
+                    { moment().utcOffset(times/60).format('DD/MM/YYYY h:mm a') 
                   }
                      <p id='datePara'></p>
                     {/* {DateTime} */}
